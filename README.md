@@ -1,4 +1,4 @@
-# podman-systemd-template
+# podman systemd template file
 A template for service-ifying and auto-updating podman containers with systemd.
 
 On a modern Fedora- or Red Hat-like system, place your service file in the `/usr/lib/systemd/system/` directory and then run `systemctl daemon-reload` to make the new service available. Enable and start your service with `systemctl enable <my-service> --now`.
