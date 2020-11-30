@@ -7,7 +7,7 @@ Wants=network-online.target
 [Service]
 TimeoutStartSec=0
 Restart=always
-Environment=CONTAINER=quay.io/my_container
+Environment=CONTAINER=quay.io/my_container:label
 ExecStartPre=-/usr/bin/podman stop %N
 ExecStartPre=-/usr/bin/podman rm %N
 ExecStartPre=/usr/bin/podman pull $CONTAINER
