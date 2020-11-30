@@ -1,0 +1,18 @@
+[Unit]
+Description=My Service Name
+RequiresMountsFor=/my_mountpoint
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+Environment=CONTAINER=quay.io/my_container
+ExecStartPre=-/usr/bin/podman stop %N
+ExecStartPre=-/usr/bin/podman rm %N
+ExecStartPre=/usr/bin/podman pull $CONTAINER
+#ExecStart=/usr/bin/podman run --systemd=false --rm --name="%N" --net=host -v /my_mountpoint/%N/config:/config:Z $CONTAINER
+ExecStart=/usr/bin/podman run --systemd=false --rm --name="%N" -p 8080:8080 -p 8443:8443 -p 10001:10001/udp -v /my_mountpoint/%N/config:/config:Z $CONTAINER
+
+[Install]
+WantedBy=multi-user.target
